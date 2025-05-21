@@ -38,6 +38,16 @@ public static class Define
         Npc,
     }
 
+    /// <summary>
+    /// 채집된 오브젝트의 특성
+    /// </summary>
+    public enum EEnvType
+    {
+        Attack, // 공격형
+        Heal, // 회복형
+        Shield, // 방어형
+    }
+
     public enum EInputSystemState
     {
         Idle,

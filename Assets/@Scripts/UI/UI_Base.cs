@@ -56,8 +56,8 @@ public class UI_Base : InitBase
         return objects[idx] as T;
     }
 
-    protected GameObject GetObject(int idx) { return Get<GameObject>(idx); }
-    protected TMP_Text GetText(int idx) { return Get<TMP_Text>(idx); }
+    public GameObject GetObject(int idx) { return Get<GameObject>(idx); }
+    public TMP_Text GetText(int idx) { return Get<TMP_Text>(idx); }
     protected Button GetButton(int idx) { return Get<Button>(idx); }
     protected Toggle GetToggle(int idx) { return Get<Toggle>(idx); }
 
