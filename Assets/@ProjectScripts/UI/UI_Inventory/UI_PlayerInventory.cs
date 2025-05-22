@@ -14,7 +14,7 @@ public class UI_PlayerInventory : UI_Scene
         _combineTable.Add((10, 10), 102); // 꽃 + 꽃 = 고급 회복약
         _combineTable.Add((10, 11), 101); // 꽃 + 진흙 = 회복약
         _combineTable.Add((10, 52), 112); // 꽃 + 붉은 발톱 → 상처 회복약
-        _combineTable.Add((10, 53), 104); // 꽃 + 붉은 꼬리비늘 = 붉은 물약
+        _combineTable.Add((10, 53), 104); // 꽃 + 붉은 꼬리비늘 = 붉은 꼬리 담금주
         _combineTable.Add((10, 51), 111); // 꽃 + 붉은 머리카락 → 강한 회복약
         _combineTable.Add((10, 50), 113); // 꽃 + 붉은 가죽 → 재생 물약
         #endregion
