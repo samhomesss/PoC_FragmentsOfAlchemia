@@ -19,6 +19,10 @@ public class EnemyHP : UI_Scene
     void EnemyDamaged(int damage)
     {
         _enemyHP.value -= damage;
+        if (_enemyHP.value <= 0)
+        {
+            Debug.Log("적이 죽었습니다.");
+        }
     }
 
 }

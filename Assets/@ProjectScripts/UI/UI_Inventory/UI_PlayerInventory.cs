@@ -5,6 +5,21 @@ using UnityEngine;
 
 public class UI_PlayerInventory : UI_Scene
 {
+    // 조합 정보를 담는 Dictionary
+    private Dictionary<(int, int), int> _combineTable = new();
+
+    private void InitCombineTable()
+    {
+        _combineTable.Add((10, 10), 102); // 꽃 + 꽃 = 고급 회복약
+        _combineTable.Add((10, 11), 101); // 꽃 + 진흙 = 회복약
+        _combineTable.Add((11, 10), 101); // 진흙 + 꽃 = 회복약
+        _combineTable.Add((11, 11), 103); // 진흙 + 진흙 = 진흙 폭탄
+        _combineTable.Add((11, 50), 105); // 진흙 + 붉은 가죽 = 붉은 폭탄
+        _combineTable.Add((51, 51), 106); // 붉은 머리카락 + 붉은 머리카락 = 뭔가
+        _combineTable.Add((10, 52), 107); // 꽃 + 붉은 발톱
+        _combineTable.Add((10, 53), 104); // 꽃 + 붉은 꼬리비늘
+    }
+
     enum GameObjects
     {
         InventoryBG,
@@ -33,7 +48,7 @@ public class UI_PlayerInventory : UI_Scene
         BindObjects(typeof(GameObjects));
 
         Managers.Game.OnGetItemEvent += GetItemInventory; // 아이템 먹은거 표시 
-
+        InitCombineTable();
         return true;
     }
 
@@ -76,81 +91,28 @@ public class UI_PlayerInventory : UI_Scene
     /// </summary>
     /// <param name="index1"></param>
     /// <param name="index2"></param>
-    void CombineItems(InventorySlotImage index1, InventorySlotImage index2)
+    void CombineItems(InventorySlotImage slot1, InventorySlotImage slot2)
     {
-        int mixIndex = 0;
+        int id1 = slot1.slotID;
+        int id2 = slot2.slotID;
 
-        switch (index1.slotID)
+        if (_combineTable.TryGetValue((id1, id2), out int result) ||
+            _combineTable.TryGetValue((id2, id1), out result)) // 양방향 체크
         {
-            case 10: // 꽃
-                switch (index2.slotID)
-                {
-                    case 10: // 꽃
-                        // 고급 회복약
-                        mixIndex = 102;
-                        break;
-                    case 11: // 진흙
-                        // 회복약
-                        mixIndex = 101;
-                        break;
-                    case 50: // 붉은 가죽
-                        break;
-                    case 51: // 붉은 머리카락
-                        break;
-                    case 52: // 붉은 발톱
-                        mixIndex = 107;
-                        break;
-                    case 53: // 붉은 꼬리비늘
-                        mixIndex = 104;
-                        break;
-                }
-                break;
-            case 11: // 진흙
-                switch (index2.slotID)
-                {
-                    case 10: // 꽃
-                        // 회복약
-                        mixIndex = 101;
-                        break;
-                    case 11: // 진흙
-                        // 진흙 폭탄
-                        mixIndex = 103;
-                        break;
-                    case 50:
-                        mixIndex = 105; // 붉은 폭탄
-                        break;
-                    case 51:
-                        mixIndex = 0;
-                        break;
-                    case 52:
-                        mixIndex = 0;
-                        break;
-                    case 53:
-                        mixIndex = 0;
-                        break;
-                }
-                break;
-            case 51:
-                switch (index2.slotID)
-                {
-                    case 51:
-                        mixIndex = 106;
-                        break;
-                }
-                break;
+            slot1.slotID = result;
+            slot2.slotID = 0;
+
+            slot1.slotText.text = ItemDataBase.ItemDatas[result].itemName;
+            slot2.slotText.text = "";
+            slot2.transform.parent.GetComponent<InventorySlot>().IsEmpty = true;
+
+            Debug.Log($"조합 성공: {id1} + {id2} = {result}");
         }
-
-        if (mixIndex == 0) // TODO: 조합할수 없습니다 문구 띄워주기 
-            return;
-
-        index1.slotID = mixIndex;
-        index2.slotID = 0;
-
-        index1.slotText.text = ItemDataBase.ItemDatas[index1.slotID].itemName;
-        index2.slotText.text = "";
-        index2.transform.parent.GetComponent<InventorySlot>().IsEmpty = true;
-
-        Debug.Log($"아이템 조합 완료: {index1} 슬롯에 결과 저장");
+        else
+        {
+            Debug.Log("조합 불가한 아이템입니다.");
+            // TODO: 사용자에게 UI로 '조합 불가' 메시지 보여주기
+        }
     }
     // 갯수 증가 
     void GetItemInventory(int itemID)
