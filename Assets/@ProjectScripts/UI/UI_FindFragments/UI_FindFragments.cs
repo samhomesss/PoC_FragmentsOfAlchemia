@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.UI;
 
 public class UI_FindFragments : UI_Scene
@@ -25,16 +24,7 @@ public class UI_FindFragments : UI_Scene
             return false;
 
         BindButtons(typeof(Buttons));
-
-        _upScene = FindAnyObjectByType<BattleSceneUp>();
-        _rightScene = FindAnyObjectByType<BattleSceneRight>();
-        _leftScene = FindAnyObjectByType<BattleSceneLeft>();
-        _originScene = FindAnyObjectByType<BattleSceneOriginal>();
-
-        _upScene.gameObject.SetActive(false);
-        _rightScene.gameObject.SetActive(false);
-        _leftScene.gameObject.SetActive(false);
-
+       
         _upArrow = GetButton((int)Buttons.UpArrow);
         _leftArrow = GetButton((int)Buttons.LeftArrow);
         _rightArrow = GetButton((int)Buttons.RightArrow);
@@ -44,6 +34,19 @@ public class UI_FindFragments : UI_Scene
         _leftArrow.onClick.AddListener(GotoLeftScene);
 
         return true;
+    }
+
+    private void Start()
+    {
+        _upScene = FindAnyObjectByType<BattleSceneUp>();
+        _rightScene = FindAnyObjectByType<BattleSceneRight>();
+        _leftScene = FindAnyObjectByType<BattleSceneLeft>();
+        _originScene = FindAnyObjectByType<BattleSceneOriginal>();
+
+        _upScene.gameObject.SetActive(false);
+        _rightScene.gameObject.SetActive(false);
+        _leftScene.gameObject.SetActive(false);
+
     }
 
     void GotoUPScene()

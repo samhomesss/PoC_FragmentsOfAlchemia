@@ -8,11 +8,12 @@ public class BigRock : MonoBehaviour
     BattleSceneUp _battleUpScene;
     private void Awake()
     {
-        _battleScene = FindAnyObjectByType<BattleSceneOriginal>();
-        _battleUpScene = FindAnyObjectByType<BattleSceneUp>();
+       
     }
     private void Start()
     {
+        _battleScene = FindAnyObjectByType<BattleSceneOriginal>();
+        _battleUpScene = FindAnyObjectByType<BattleSceneUp>();
         _button = GetComponent<Button>();
         _button.onClick.AddListener(ButtonClick);
     }
@@ -24,7 +25,7 @@ public class BigRock : MonoBehaviour
 
         _battleScene.gameObject.SetActive(true);
         _battleUpScene.gameObject.SetActive(false);
-        Managers.Game.HeroAttack(40);
+        Managers.Game.HeroAttack(120);
         Destroy(gameObject);
     }
 }

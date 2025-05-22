@@ -10,16 +10,41 @@ public class UI_PlayerInventory : UI_Scene
 
     private void InitCombineTable()
     {
+        #region 회복초 조합
         _combineTable.Add((10, 10), 102); // 꽃 + 꽃 = 고급 회복약
         _combineTable.Add((10, 11), 101); // 꽃 + 진흙 = 회복약
+        _combineTable.Add((10, 52), 112); // 꽃 + 붉은 발톱 → 상처 회복약
+        _combineTable.Add((10, 53), 104); // 꽃 + 붉은 꼬리비늘 = 붉은 물약
+        _combineTable.Add((10, 51), 111); // 꽃 + 붉은 머리카락 → 강한 회복약
+        _combineTable.Add((10, 50), 113); // 꽃 + 붉은 가죽 → 재생 물약
+        #endregion
+
+        #region 진흙 조합
         _combineTable.Add((11, 10), 101); // 진흙 + 꽃 = 회복약
         _combineTable.Add((11, 11), 103); // 진흙 + 진흙 = 진흙 폭탄
         _combineTable.Add((11, 50), 105); // 진흙 + 붉은 가죽 = 붉은 폭탄
-        _combineTable.Add((51, 51), 106); // 붉은 머리카락 + 붉은 머리카락 = 뭔가
-        _combineTable.Add((10, 52), 107); // 꽃 + 붉은 발톱
-        _combineTable.Add((10, 53), 104); // 꽃 + 붉은 꼬리비늘
+        _combineTable.Add((11, 51), 119); // 진흙 + 붉은 머리카락 → 불꽃 폭탄
+        _combineTable.Add((11, 52), 120); // 진흙 + 붉은 발톱 → 날카로운 진흙탄
+        _combineTable.Add((11, 53), 121); // 진흙 + 붉은 꼬리 비늘 → 비늘탄
+        #endregion
+
+        #region 몬스터 소재 조합
+        _combineTable.Add((51, 51), 106); // 붉은 머리카락 + 붉은 머리카락 = 화상폭탄
+        _combineTable.Add((53, 53), 116); // 붉은 꼬리 비늘 + 붉은 꼬리 비늘 → 비늘갑주 물약
+        _combineTable.Add((50, 51), 122); // 붉은 가죽 + 붉은 머리카락 → 붉은 화염 폭탄
+        _combineTable.Add((52, 53), 123); // 붉은 발톱 + 붉은 꼬리 비늘 → 파열탄
+        _combineTable.Add((51, 53), 124); // 붉은 머리카락 + 붉은 꼬리 비늘 → 연소탄
+        _combineTable.Add((50, 50), 125); // 붉은 가죽 + 붉은 가죽 → 고강도 붉은 폭탄
+        _combineTable.Add((52, 52), 126); // 붉은 발톱 + 붉은 발톱 → 파편탄
+        #endregion
+
+        #region 고급 회복약 조합
+        _combineTable.Add((102, 102), 107); // 고급 회복약 + 고급 회복약 = 쌉 고급 회복약
+        _combineTable.Add((107, 107), 108); // 쌉고급 회복약 + 쌉고급 회복약 = 그만 만들어 회복약
+        #endregion
     }
 
+    #region UnData
     enum GameObjects
     {
         InventoryBG,
@@ -130,6 +155,5 @@ public class UI_PlayerInventory : UI_Scene
             }
         }
     }
-
-
+    #endregion
 }
