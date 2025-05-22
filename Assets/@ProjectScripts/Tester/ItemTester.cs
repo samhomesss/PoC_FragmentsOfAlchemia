@@ -58,6 +58,8 @@ public class ItemTester : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E)) // 연금 수확 -> 몬스터에게 뜯어 오기 
         {
+            if (_uiMonsterAlchemia == null)
+                _uiMonsterAlchemia = FindAnyObjectByType<UI_MonsterAlchemia>();
             _uiMonsterAlchemia.GetComponent<Canvas>().enabled = !_uiMonsterAlchemia.GetComponent<Canvas>().enabled;
         }
 
